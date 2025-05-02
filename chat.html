@@ -534,6 +534,22 @@
     }
   });
 
+  function getAgentResponse(userMessage) {
+    const msg = userMessage.toLowerCase();
+
+    if (msg.includes('budget')) {
+      return "Sure! Please tell me your budget range, and I can suggest the best destinations for you.";
+    } else if (msg.match(/(suggest|recommend|best destinations)/)) {
+      return "Based on your preferences, I recommend visiting Paris, Tokyo, and Sydney for an unforgettable experience.";
+    } else if (msg.includes('help')) {
+      return "I'm here to help! You can ask me about travel budgets, destination suggestions, and more.";
+    } else if (msg.includes('thank')) {
+      return "You're welcome! If you have more questions, feel free to ask.";
+    } else {
+      return "Could you please provide more details or specify your preferences?";
+    }
+  }
+
   sendMessageBtn.addEventListener('click', () => {
     const message = messageInput.value.trim();
     if (message === '' && attachments.length === 0) return;
@@ -543,9 +559,10 @@
     attachments = [];
     clearPreviews();
 
-    // Simulate agent response
+    // Generate agent response based on user message
     setTimeout(() => {
-      addMessage('Thank you for your message. We will get back to you shortly.', 'agent');
+      const response = getAgentResponse(message);
+      addMessage(response, 'agent');
     }, 1000);
   });
 
