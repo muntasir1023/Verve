@@ -48,7 +48,7 @@
       padding: 6rem 1rem;
       min-height: 400px;
       background-color: #f27c3c;
-      background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.1)), url('images/hero-background.jpg');
+      background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.1)), url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1470&q=80');
       background-size: cover;
       background-position: center;
       color: white;
@@ -88,8 +88,9 @@
     }
 
     .card {
-      flex: 1 1 180px;
-      max-width: 220px;
+      flex: 0 0 220px;
+      width: 220px;
+      height: 320px;
       background-color: white;
       border-radius: 20px;
       overflow: hidden;
@@ -98,6 +99,8 @@
       cursor: pointer;
       position: relative;
       will-change: transform, box-shadow;
+      display: flex;
+      flex-direction: column;
     }
 
     .card:hover {
@@ -108,9 +111,10 @@
 
     .card img {
       width: 100%;
-      height: 220px;
+      height: 180px;
       object-fit: cover;
       transition: transform 0.4s ease;
+      flex-shrink: 0;
     }
 
     .card:hover img {
@@ -122,7 +126,11 @@
     }
 
     .card-content {
-      padding: 1rem 1.2rem 2rem;
+      padding: 1rem 1.2rem 1rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
     .card:hover h3 {
@@ -201,11 +209,8 @@
 </style>
 </head>
 <body>
-</style>
-</head>
-<body>
   <header>
-  <div><strong>Verve</strong></div>
+  <div class="verve-title">Verve</div>
   <nav>
     <a href="flights.html">Flights</a>
     <a href="hotels.html">Hotels</a>
@@ -213,6 +218,15 @@
     <a href="login.html" class="login-btn">Login</a>
   </nav>
 </header>
+  <style>
+    .verve-title {
+      font-weight: 900;
+      font-size: 2.5rem;
+      color: #f27c3c;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      font-family: 'Segoe UI Black', 'Segoe UI Bold', 'Segoe UI', sans-serif;
+    }
+  </style>
 
 <section class="hero">
   <h1>Explore the World with Us</h1>
@@ -223,52 +237,73 @@
   <h2>Popular Destinations</h2>
     <div class="destinations">
     <div class="card">
-      <img src="images/paris.jpg" alt="Paris">
+      <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=800&q=80" alt="Paris">
       <div class="card-content">
         <h3>Paris, France</h3>
         <p>The city of lights, love, and timeless culture. Enjoy Eiffel Tower views and gourmet cuisine.</p>
       </div>
     </div>
     <div class="card">
-      <img src="images/tokyo.jpg" alt="Tokyo">
+      <img src="https://images.unsplash.com/photo-1549692520-acc6669e2f0c?auto=format&fit=crop&w=800&q=80" alt="Tokyo">
       <div class="card-content">
         <h3>Tokyo, Japan</h3>
         <p>A vibrant fusion of modern skyscrapers and traditional temples, with world-famous sushi.</p>
       </div>
     </div>
     <div class="card">
-      <img src="images/newyork.jpg" alt="New York">
+      <img src="https://images.unsplash.com/photo-1549924231-f129b911e442?auto=format&fit=crop&w=800&q=80" alt="New York">
       <div class="card-content">
         <h3>New York, USA</h3>
         <p>The city that never sleeps. Visit Central Park, Times Square, and Broadway.</p>
       </div>
     </div>
     <div class="card">
-      <img src="images/sydney.jpg" alt="Sydney">
+      <img src="https://images.unsplash.com/photo-1506973035872-a4f7b3a7a1a0?auto=format&fit=crop&w=800&q=80" alt="Sydney">
       <div class="card-content">
         <h3>Sydney, Australia</h3>
         <p>Famous for its Opera House and beautiful harbor views.</p>
       </div>
     </div>
     <div class="card">
-      <img src="images/rome.jpg" alt="Rome">
+      <img src="https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=800&q=80" alt="Rome">
       <div class="card-content">
         <h3>Rome, Italy</h3>
         <p>Explore ancient ruins and vibrant street life in the Eternal City.</p>
       </div>
     </div>
     <div class="card">
-      <img src="images/barcelona2.jpg" alt="Barcelona">
+      <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80" alt="Barcelona">
       <div class="card-content">
         <h3>Barcelona, Spain</h3>
         <p>Famous for Gaudí's architecture and vibrant culture.</p>
       </div>
     </div>
     <div class="card">
-      <img src="images/melbourne.jpg" alt="Melbourne">
+      <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80" alt="Melbourne">
       <div class="card-content">
         <h3>Melbourne, Australia</h3>
       <p>Famous for its arts scene and coffee culture.</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1504609813440-7e9a0e0a0a0a?auto=format&fit=crop&w=800&q=80" alt="London">
+      <div class="card-content">
+        <h3>London, UK</h3>
+        <p>Historic landmarks and vibrant city life.</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?auto=format&fit=crop&w=800&q=80" alt="Dubai">
+      <div class="card-content">
+        <h3>Dubai, UAE</h3>
+        <p>Modern architecture and luxury shopping.</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80" alt="Venice">
+      <div class="card-content">
+        <h3>Venice, Italy</h3>
+        <p>Romantic canals and historic architecture.</p>
       </div>
     </div>
   </div>
