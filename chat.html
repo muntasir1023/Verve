@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Verve - Chat Support</title>
+  <style>
+    /* Base Styles */
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background-color: #fffdf9;
+      color: #333;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background-color: #fff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+
+    header nav a {
+      margin: 0 1rem;
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+    }
+
+    .login-btn {
+      background-color: #f27c3c;
+      color: white;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    .login-btn:hover {
+      background-color: #e56612;
+    }
+
+    /* Chat System Styles */
+    .chat-container {
+      max-width: 800px;
+      margin: 2rem auto;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      overflow: hidden;
+      background-color: white;
+      display: flex;
+      flex-direction: column;
+      height: 600px;
+    }
+
+    .chat-header {
+      background-color: #f27c3c;
+      color: white;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .chat-header h1 {
+      margin: 0;
+      font-size: 1.5rem;
+      border-left: none;
+      padding-left: 0;
+    }
+
+    .chat-status {
+      display: flex;
+      align-items: center;
+      font-size: 0.9rem;
+    }
+
+    .status-dot {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: #4caf50;
+      margin-right: 8px;
+    }
+
+    .chat-messages {
+      flex-grow: 1;
+      overflow-y: auto;
+      padding: 1.5rem;
+      background-color: #f9f9f9;
+    }
+
+    .message {
+      margin-bottom: 1rem;
+      max-width: 70%;
+      padding: 0.75rem 1rem;
+      border-radius: 18px;
+      position: relative;
+      word-wrap: break-word;
+    }
+
+    .message.user {
+      background-color: #f27c3c;
+      color: white;
+      margin-left: auto;
+      border-bottom-right-radius: 4px;
+    }
+
+    .message.agent {
+      background-color: #e0e0e0;
+      margin-right: auto;
+      border-bottom-left-radius: 4px;
+    }
+
+    .message.system {
+      background-color: #f5f5f5;
+      margin: 0 auto 1rem;
+      text-align: center;
+      max-width: 90%;
+      border-radius: 8px;
+      color: #666;
+    }
+
+    .timestamp {
+      display: block;
+      font-size: 0.7rem;
+      margin-top: 4px;
+      opacity: 0.8;
+    }
+
+    .message.user .timestamp {
+      text-align: right;
+      color: rgba(255,255,255,0.8);
+    }
+
+    .message.agent .timestamp {
+      text-align: left;
+      color: rgba(0,0,0,0.6);
+    }
+
+    .chat-input {
+      padding: 1rem;
+      border-top: 1px solid #eee;
+      background-color: white;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #messageInput {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      resize: none;
+      font-family: inherit;
+      margin-bottom: 8px;
+      height: 80px;
+    }
+
+    #messageInput:focus {
+      outline: none;
+      border-color: #f27c3c;
+      box-shadow: 0 0 0 2px rgba(242, 124, 60, 0.2);
+    }
+
+    #sendMessage {
+      background-color: #f27c3c;
+      color: white;
+      border: none;
+      padding: 0.5rem 1.5rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.2s;
+      align-self: flex-end;
+    }
+
+    #sendMessage:hover {
+      background-color: #e56612;
+    }
+
+    .attachment-options {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 8px;
+      align-items: center;
+    }
+
+    .attach-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #666;
+      padding: 6px;
+      border-radius: 50%;
+      transition: all 0.2s;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .attach-btn:hover {
+      background-color: #f0f0f0;
+      color: #f27c3c;
+    }
+
+    .attach-btn input[type="file"] {
+      display: none;
+    }
+
+    .preview-area {
+      margin-top: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .attachment-preview {
+      position: relative;
+      width: 100px;
+      height: 100px;
+      border-radius: 8px;
+      overflow: hidden;
+      background-color: #f5f5f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: #666;
+      text-align: center;
+      padding: 4px;
+      word-break: break-word;
+    }
+
+    .attachment-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .attachment-preview .remove-btn {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      background-color: rgba(0,0,0,0.5);
+      color: white;
+      border: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 12px;
+    }
+
+    /* Voice recording styles */
+    .record-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #666;
+      padding: 6px;
+      border-radius: 50%;
+      transition: all 0.2s;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .record-btn.recording {
+      color: red;
+      background-color: #ffe6e6;
+    }
+
+    .record-timer {
+      font-size: 0.8rem;
+      margin-left: 6px;
+      color: #f27c3c;
+      font-weight: bold;
+    }
+
+    /* Responsive styles */
+    @media (max-width: 768px) {
+      .chat-container {
+        margin: 0;
+        border-radius: 0;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+      
+      .chat-messages {
+        flex-grow: 1;
+        height: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div><strong>Verve</strong></div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="flights.html">Flights</a>
+    <a href="hotels.html">Hotels</a>
+    <a href="about.html">About</a>
+    <a href="login.html" class="login-btn">Login</a>
+  </nav>
+</header>
+<div class="chat-container">
+  <div class="chat-header">
+    <h1>Chat Support</h1>
+    <div class="chat-status">
+      <span class="status-dot"></span> Online
+    </div>
+  </div>
+  <div class="chat-messages" id="chatMessages">
+    <div class="message system">Welcome to Travel Agency chat support! How can we assist you today?</div>
+  </div>
+  <div class="chat-input">
+    <div class="attachment-options">
+      <label class="attach-btn" title="Attach Image">
+        📷
+        <input type="file" id="imageInput" accept="image/*" multiple>
+      </label>
+      <label class="attach-btn" title="Attach Video">
+        🎥
+        <input type="file" id="videoInput" accept="video/*" multiple>
+      </label>
+      <label class="attach-btn" title="Attach File">
+        📎
+        <input type="file" id="fileInput" multiple>
+      </label>
+      <button id="recordBtn" class="record-btn" title="Record Voice Message">🎤</button>
+      <span id="recordTimer" class="record-timer"></span>
+    </div>
+    <textarea id="messageInput" placeholder="Type your message here..."></textarea>
+    <div class="preview-area" id="previewArea"></div>
+    <button id="sendMessage">Send</button>
+  </div>
+</div>
+<script>
+  const chatMessages = document.getElementById('chatMessages');
+  const messageInput = document.getElementById('messageInput');
+  const sendMessageBtn = document.getElementById('sendMessage');
+  const previewArea = document.getElementById('previewArea');
+
+  const imageInput = document.getElementById('imageInput');
+  const videoInput = document.getElementById('videoInput');
+  const fileInput = document.getElementById('fileInput');
+  const recordBtn = document.getElementById('recordBtn');
+  const recordTimer = document.getElementById('recordTimer');
+
+  let attachments = [];
+  let mediaRecorder = null;
+  let audioChunks = [];
+  let recording = false;
+  let recordStartTime = null;
+  let recordInterval = null;
+  const MAX_RECORD_TIME = 5 * 60 * 1000; // 5 minutes in ms
+
+  function addMessage(text, sender, attachedFiles = [], audioBlob = null) {
+    const messageDiv = document.createElement('div');
+    messageDiv.classList.add('message', sender);
+
+    if (text) {
+      const textNode = document.createTextNode(text);
+      messageDiv.appendChild(textNode);
+    }
+
+    // Render attachments if any
+    attachedFiles.forEach(file => {
+      const attachmentDiv = document.createElement('div');
+      attachmentDiv.classList.add('attachment-preview');
+
+      if (file.type.startsWith('image/')) {
+        const img = document.createElement('img');
+        img.src = URL.createObjectURL(file);
+        img.onload = () => URL.revokeObjectURL(img.src);
+        attachmentDiv.appendChild(img);
+      } else if (file.type.startsWith('video/')) {
+        const video = document.createElement('video');
+        video.src = URL.createObjectURL(file);
+        video.controls = true;
+        video.style.maxWidth = '100%';
+        video.style.maxHeight = '100px';
+        video.onload = () => URL.revokeObjectURL(video.src);
+        attachmentDiv.appendChild(video);
+      } else {
+        // For other files, show file name
+        attachmentDiv.textContent = file.name;
+      }
+      messageDiv.appendChild(attachmentDiv);
+    });
+
+    // Render audio message if present
+    if (audioBlob) {
+      const audioDiv = document.createElement('div');
+      audioDiv.classList.add('attachment-preview');
+      const audio = document.createElement('audio');
+      audio.controls = true;
+      audio.src = URL.createObjectURL(audioBlob);
+      audioDiv.appendChild(audio);
+      messageDiv.appendChild(audioDiv);
+    }
+
+    const timestampSpan = document.createElement('span');
+    timestampSpan.classList.add('timestamp');
+    const now = new Date();
+    timestampSpan.textContent = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+    messageDiv.appendChild(timestampSpan);
+
+    chatMessages.appendChild(messageDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
+  function clearPreviews() {
+    previewArea.innerHTML = '';
+  }
+
+  function renderPreviews() {
+    clearPreviews();
+    attachments.forEach((file, index) => {
+      const previewDiv = document.createElement('div');
+      previewDiv.classList.add('attachment-preview');
+
+      if (file.type.startsWith('image/')) {
+        const img = document.createElement('img');
+        img.src = URL.createObjectURL(file);
+        img.onload = () => URL.revokeObjectURL(img.src);
+        previewDiv.appendChild(img);
+      } else if (file.type.startsWith('video/')) {
+        const video = document.createElement('video');
+        video.src = URL.createObjectURL(file);
+        video.controls = true;
+        video.style.maxWidth = '100%';
+        video.style.maxHeight = '100px';
+        video.onload = () => URL.revokeObjectURL(video.src);
+        previewDiv.appendChild(video);
+      } else {
+        previewDiv.textContent = file.name;
+      }
+
+      const removeBtn = document.createElement('button');
+      removeBtn.classList.add('remove-btn');
+      removeBtn.textContent = '×';
+      removeBtn.title = 'Remove attachment';
+      removeBtn.addEventListener('click', () => {
+        attachments.splice(index, 1);
+        renderPreviews();
+      });
+
+      previewDiv.appendChild(removeBtn);
+      previewArea.appendChild(previewDiv);
+    });
+  }
+
+  function handleFileInputChange(event) {
+    const files = Array.from(event.target.files);
+    attachments = attachments.concat(files);
+    renderPreviews();
+    event.target.value = ''; // Reset input
+  }
+
+  imageInput.addEventListener('change', handleFileInputChange);
+  videoInput.addEventListener('change', handleFileInputChange);
+  fileInput.addEventListener('change', handleFileInputChange);
+
+  function updateRecordTimer() {
+    if (!recordStartTime) return;
+    const elapsed = Date.now() - recordStartTime;
+    const seconds = Math.floor((elapsed / 1000) % 60);
+    const minutes = Math.floor(elapsed / 60000);
+    recordTimer.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+    if (elapsed >= MAX_RECORD_TIME) {
+      stopRecording();
+    }
+  }
+
+  function startRecording() {
+    if (recording) return;
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      alert('Your browser does not support audio recording.');
+      return;
+    }
+    navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
+      mediaRecorder = new MediaRecorder(stream);
+      audioChunks = [];
+      mediaRecorder.ondataavailable = e => {
+        audioChunks.push(e.data);
+      };
+      mediaRecorder.onstop = () => {
+        const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+        addMessage('', 'user', [], audioBlob);
+        stream.getTracks().forEach(track => track.stop());
+      };
+      mediaRecorder.start();
+      recording = true;
+      recordStartTime = Date.now();
+      recordBtn.classList.add('recording');
+      recordTimer.textContent = '0:00';
+      recordInterval = setInterval(updateRecordTimer, 1000);
+    }).catch(err => {
+      alert('Could not start audio recording: ' + err.message);
+    });
+  }
+
+  function stopRecording() {
+    if (!recording) return;
+    mediaRecorder.stop();
+    recording = false;
+    recordStartTime = null;
+    clearInterval(recordInterval);
+    recordTimer.textContent = '';
+    recordBtn.classList.remove('recording');
+  }
+
+  recordBtn.addEventListener('click', () => {
+    if (recording) {
+      stopRecording();
+    } else {
+      startRecording();
+    }
+  });
+
+  sendMessageBtn.addEventListener('click', () => {
+    const message = messageInput.value.trim();
+    if (message === '' && attachments.length === 0) return;
+
+    addMessage(message, 'user', attachments);
+    messageInput.value = '';
+    attachments = [];
+    clearPreviews();
+
+    // Simulate agent response
+    setTimeout(() => {
+      addMessage('Thank you for your message. We will get back to you shortly.', 'agent');
+    }, 1000);
+  });
+
+  messageInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      sendMessageBtn.click();
+    }
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Verve - Flights</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background-color: #fffdf9;
+      color: #333;
+      animation: fadeIn 0.8s ease forwards;
+      opacity: 0;
+    }
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background-color: #fff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+    header nav a {
+      margin: 0 1rem;
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+    }
+    .login-btn {
+      background-color: #f27c3c;
+      color: white;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+    .login-btn:hover {
+      background-color: #e56612;
+    }
+    main {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+      opacity: 0;
+      animation: fadeInUp 0.8s ease forwards;
+      animation-delay: 0.3s;
+      transform: translateY(20px);
+    }
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    h1 {
+      font-size: 2.5rem;
+      border-left: 6px solid #f27c3c;
+      padding-left: 12px;
+      margin-bottom: 1.5rem;
+    }
+    form {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      opacity: 0;
+      animation: fadeInUp 0.8s ease forwards;
+      animation-delay: 0.5s;
+      transform: translateY(20px);
+    }
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+    input, select {
+      width: 100%;
+      padding: 0.5rem;
+      margin-bottom: 1.5rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    input:focus, select:focus {
+      border-color: #f27c3c;
+      box-shadow: 0 0 8px rgba(242, 124, 60, 0.6);
+      outline: none;
+    }
+    button {
+      background-color: #f27c3c;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+    button:hover {
+      background-color: #e5691a;
+      transform: scale(1.05);
+    }
+    .result {
+      margin-top: 1.5rem;
+      padding: 1rem;
+      background-color: #f9f9f9;
+      border-radius: 8px;
+      font-size: 1rem;
+      color: #333;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+    .result.visible {
+      opacity: 1;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background-color: #fafafa;
+      color: #777;
+      font-size: 0.9rem;
+      margin-top: 3rem;
+    }
+    @media (max-width: 600px) {
+      main {
+        width: 90%;
+      }
+      h1 {
+        font-size: 2rem;
+      }
+      header nav a {
+        margin: 0 0.5rem;
+        font-size: 0.9rem;
+      }
+      .login-btn {
+        padding: 0.3rem 0.8rem;
+        font-size: 0.9rem;
+      }
+      button {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div><strong>TVerve</strong></div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="flights.html">Flights</a>
+    <a href="hotels.html">Hotels</a>
+    <a href="about.html">About</a>
+    <a href="login.html" class="login-btn">Login</a>
+  </nav>
+</header>
+<main>
+  <h1>Book Your Flight</h1>
+  <form id="flightForm">
+    <label for="from">From:</label>
+    <input type="text" id="from" name="from" placeholder="Departure city" list="citySuggestions" required />
+    <label for="to">To:</label>
+    <input type="text" id="to" name="to" placeholder="Destination city" list="citySuggestions" required />
+    <datalist id="citySuggestions">
+      <option value="New York"></option>
+      <option value="Los Angeles"></option>
+      <option value="Chicago"></option>
+      <option value="London"></option>
+      <option value="Paris"></option>
+      <option value="Tokyo"></option>
+      <option value="Sydney"></option>
+      <option value="Dubai"></option>
+      <option value="Toronto"></option>
+      <option value="San Francisco"></option>
+    </datalist>
+    <label for="departure">Departure Date:</label>
+    <input type="date" id="departure" name="departure" required />
+    <label for="return">Return Date:</label>
+    <input type="date" id="return" name="return" />
+    <label for="passengers">Passengers:</label>
+    <select id="passengers" name="passengers" required>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+    </select>
+    <button type="submit">Search Flights</button>
+  </form>
+  <div class="result" id="result"></div>
+  <section id="realTimeFlights" style="margin-top: 2rem;">
+    <h2>Real-Time Flight Options</h2>
+    <div id="flightsList" style="background: #fff; padding: 1rem; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); max-height: 300px; overflow-y: auto;"></div>
+  </section>
+</main>
+<footer>
+  &copy; 2025 Verve. All rights reserved.
+</footer>
+  <script>
+    document.getElementById('flightForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const from = document.getElementById('from').value;
+      const to = document.getElementById('to').value;
+      const departure = document.getElementById('departure').value;
+      const returnDate = document.getElementById('return').value;
+      const passengers = document.getElementById('passengers').value;
+      let message = `Searching flights from ${from} to ${to} departing on ${departure}`;
+      if (returnDate) {
+        message += ` and returning on ${returnDate}`;
+      }
+      message += ` for ${passengers} passenger(s).`;
+      const resultEl = document.getElementById('result');
+      resultEl.textContent = message;
+      resultEl.classList.add('visible');
+
+      // Simulate fetching real-time flight data
+      const flightsList = document.getElementById('flightsList');
+      flightsList.innerHTML = '<p>Loading real-time flight options...</p>';
+
+      setTimeout(() => {
+        // Mock flight data
+        const flights = [
+          { airline: 'Airways A', flightNumber: 'AA123', departureTime: '10:00 AM', arrivalTime: '1:00 PM', price: '$250' },
+          { airline: 'Airways B', flightNumber: 'BB456', departureTime: '12:30 PM', arrivalTime: '3:30 PM', price: '$280' },
+          { airline: 'Airways C', flightNumber: 'CC789', departureTime: '3:00 PM', arrivalTime: '6:00 PM', price: '$300' },
+        ];
+
+        let flightsHtml = '<ul style="list-style:none; padding:0; margin:0;">';
+        flights.forEach(flight => {
+          flightsHtml += `
+            <li style="padding: 10px; border-bottom: 1px solid #ddd; transition: background-color 0.3s;">
+              <strong>${flight.airline} (${flight.flightNumber})</strong><br/>
+              Departure: ${flight.departureTime} - Arrival: ${flight.arrivalTime}<br/>
+              Price: <span style="color:#f27c3c; font-weight:bold;">${flight.price}</span>
+            </li>
+          `;
+        });
+        flightsHtml += '</ul>';
+        flightsList.innerHTML = flightsHtml;
+      }, 1500);
+    });
+  </script>
+  <style>
+    #chatButton {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #f27c3c;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      font-size: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      transition: background-color 0.3s ease;
+    }
+    #chatButton:hover {
+      background-color: #e56612;
+    }
+  </style>
+  <button id="chatButton" title="Chat with us" onclick="location.href='chat.html'">&#128172;</button>
+</body>
+</html>

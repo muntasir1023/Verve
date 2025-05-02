@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Travel Agency - Hotels</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background-color: #fffdf9;
+      color: #333;
+      animation: fadeIn 0.8s ease forwards;
+      opacity: 0;
+    }
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background-color: #fff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+    header nav a {
+      margin: 0 1rem;
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+    }
+    .login-btn {
+      background-color: #f27c3c;
+      color: white;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+    .login-btn:hover {
+      background-color: #e56612;
+    }
+    main {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+      opacity: 0;
+      animation: fadeInUp 0.8s ease forwards;
+      animation-delay: 0.3s;
+      transform: translateY(20px);
+    }
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    h1 {
+      font-size: 2.5rem;
+      border-left: 6px solid #f27c3c;
+      padding-left: 12px;
+      margin-bottom: 1.5rem;
+    }
+    form {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      opacity: 0;
+      animation: fadeInUp 0.8s ease forwards;
+      animation-delay: 0.5s;
+      transform: translateY(20px);
+    }
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+    input, select {
+      width: 100%;
+      padding: 0.5rem;
+      margin-bottom: 1.5rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    input:focus, select:focus {
+      border-color: #f27c3c;
+      box-shadow: 0 0 8px rgba(242, 124, 60, 0.6);
+      outline: none;
+    }
+    button {
+      background-color: #f27c3c;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+    button:hover {
+      background-color: #e5691a;
+      transform: scale(1.05);
+    }
+    .result {
+      margin-top: 1.5rem;
+      padding: 1rem;
+      background-color: #f9f9f9;
+      border-radius: 8px;
+      font-size: 1rem;
+      color: #333;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+    .result.visible {
+      opacity: 1;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background-color: #fafafa;
+      color: #777;
+      font-size: 0.9rem;
+      margin-top: 3rem;
+    }
+    @media (max-width: 600px) {
+      main {
+        width: 90%;
+      }
+      h1 {
+        font-size: 2rem;
+      }
+      header nav a {
+        margin: 0 0.5rem;
+        font-size: 0.9rem;
+      }
+      .login-btn {
+        padding: 0.3rem 0.8rem;
+        font-size: 0.9rem;
+      }
+      button {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+      }
+    }
+  /* Chat System Styles */
+  .chat-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    overflow: hidden;
+    background-color: white;
+  }
+
+  .chat-header {
+    background-color: #f27c3c;
+    color: white;
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .chat-header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    border-left: none;
+    padding-left: 0;
+  }
+
+  .chat-status {
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+  }
+
+  .status-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #4caf50;
+    margin-right: 8px;
+  }
+
+  .chat-messages {
+    height: 400px;
+    overflow-y: auto;
+    padding: 1.5rem;
+    background-color: #f9f9f9;
+  }
+
+  .message {
+    margin-bottom: 1rem;
+    max-width: 70%;
+    padding: 0.75rem 1rem;
+    border-radius: 18px;
+    position: relative;
+  }
+
+  .message.user {
+    background-color: #f27c3c;
+    color: white;
+    margin-left: auto;
+    border-bottom-right-radius: 4px;
+  }
+
+  .message.agent {
+    background-color: #e0e0e0;
+    margin-right: auto;
+    border-bottom-left-radius: 4px;
+  }
+
+  .message.system {
+    background-color: #f5f5f5;
+    margin: 0 auto 1rem;
+    text-align: center;
+    max-width: 90%;
+    border-radius: 8px;
+    color: #666;
+  }
+
+  .timestamp {
+    display: block;
+    font-size: 0.7rem;
+    margin-top: 4px;
+    opacity: 0.8;
+  }
+
+  .message.user .timestamp {
+    text-align: right;
+    color: rgba(255,255,255,0.8);
+  }
+
+  .message.agent .timestamp {
+    text-align: left;
+    color: rgba(0,0,0,0.6);
+  }
+
+  .chat-input {
+    padding: 1rem;
+    border-top: 1px solid #eee;
+    background-color: white;
+  }
+
+  .attachment-options {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .attach-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #666;
+    padding: 6px;
+    border-radius: 50%;
+    transition: all 0.2s;
+  }
+
+  .attach-btn:hover {
+    background-color: #f0f0f0;
+    color: #f27c3c;
+  }
+
+  .attach-btn svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  #messageInput {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    resize: none;
+    font-family: inherit;
+    margin-bottom: 8px;
+  }
+
+  #messageInput:focus {
+    outline: none;
+    border-color: #f27c3c;
+    box-shadow: 0 0 0 2px rgba(242, 124, 60, 0.2);
+  }
+
+  #sendMessage {
+    background-color: #f27c3c;
+    color: white;
+    border: none;
+    padding: 0.5rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s;
+  }
+
+  #sendMessage:hover {
+    background-color: #e56612;
+  }
+
+  .preview-area {
+    margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .attachment-preview {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #f5f5f5;
+  }
+
+  .attachment-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .attachment-preview .file-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: #666;
+  }
+
+  .attachment-preview .remove-btn {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    background-color: rgba(0,0,0,0.5);
+    color: white;
+    border: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 12px;
+  }
+
+  /* Responsive styles */
+  @media (max-width: 768px) {
+    .chat-container {
+      margin: 0;
+      border-radius: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .chat-messages {
+      flex-grow: 1;
+      height: auto;
+    }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div><strong>Travel Agency</strong></div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="flights.html">Flights</a>
+    <a href="hotels.html">Hotels</a>
+    <a href="about.html">About</a>
+    <a href="login.html" class="login-btn">Login</a>
+  </nav>
+</header>
+<main>
+  <h1>Find Your Hotel</h1>
+  <form id="hotelForm">
+    <label for="location">Location:</label>
+    <input type="text" id="location" name="location" placeholder="City or hotel name" list="hotelSuggestions" required />
+    <datalist id="hotelSuggestions">
+      <option value="New York"></option>
+      <option value="Los Angeles"></option>
+      <option value="Chicago"></option>
+      <option value="London"></option>
+      <option value="Paris"></option>
+      <option value="Tokyo"></option>
+      <option value="Sydney"></option>
+      <option value="Dubai"></option>
+      <option value="Toronto"></option>
+      <option value="San Francisco"></option>
+    </datalist>
+    <label for="checkin">Check-in Date:</label>
+    <input type="date" id="checkin" name="checkin" required />
+    <label for="checkout">Check-out Date:</label>
+    <input type="date" id="checkout" name="checkout" required />
+    <label for="rooms">Rooms:</label>
+    <select id="rooms" name="rooms" required>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+    </select>
+    <button type="submit">Search Hotels</button>
+  </form>
+  <div class="result" id="result"></div>
+  <section id="realTimeHotels" style="margin-top: 2rem;">
+    <h2>Real-Time Hotel Options</h2>
+    <div id="hotelsList" style="background: #fff; padding: 1rem; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); max-height: 300px; overflow-y: auto;"></div>
+  </section>
+</main>
+<footer>
+  &copy; 2025 Verve. All rights reserved.
+</footer>
+  <script>
+    document.getElementById('hotelForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const location = document.getElementById('location').value;
+      const checkin = document.getElementById('checkin').value;
+      const checkout = document.getElementById('checkout').value;
+      const rooms = document.getElementById('rooms').value;
+      const message = `Searching hotels in ${location} from ${checkin} to ${checkout} for ${rooms} room(s).`;
+      const resultEl = document.getElementById('result');
+      resultEl.textContent = message;
+      resultEl.classList.add('visible');
+
+      // Simulate fetching real-time hotel data
+      const hotelsList = document.getElementById('hotelsList');
+      hotelsList.innerHTML = '<p>Loading real-time hotel options...</p>';
+
+      setTimeout(() => {
+        // Mock hotel data
+        const hotels = [
+          { name: 'Hotel A', location: location, rating: 4.5, price: '$150/night' },
+          { name: 'Hotel B', location: location, rating: 4.0, price: '$120/night' },
+          { name: 'Hotel C', location: location, rating: 3.8, price: '$100/night' },
+        ];
+
+        let hotelsHtml = '<ul style="list-style:none; padding:0; margin:0;">';
+        hotels.forEach(hotel => {
+          hotelsHtml += `
+            <li style="padding: 10px; border-bottom: 1px solid #ddd; transition: background-color 0.3s;">
+              <strong>${hotel.name}</strong><br/>
+              Location: ${hotel.location}<br/>
+              Rating: ${hotel.rating} ⭐<br/>
+              Price: <span style="color:#f27c3c; font-weight:bold;">${hotel.price}</span>
+            </li>
+          `;
+        });
+        hotelsHtml += '</ul>';
+        hotelsList.innerHTML = hotelsHtml;
+      }, 1500);
+    });
+  </script>
+  <style>
+    #chatButton {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #f27c3c;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      font-size: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      transition: background-color 0.3s ease;
+    }
+    #chatButton:hover {
+      background-color: #e56612;
+    }
+  </style>
+  <button id="chatButton" title="Chat with us" onclick="location.href='chat.html'">&#128172;</button>
+</body>
+</html>
