@@ -4,94 +4,31 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Verve - About</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      margin: 0;
-      background-color: #fffdf9;
-      color: #333;
-    }
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 2rem;
-      background-color: #fff;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-    }
-    header nav a {
-      margin: 0 1rem;
-      text-decoration: none;
-      color: #333;
-      font-weight: 500;
-    }
-    .login-btn {
-      background-color: #f27c3c;
-      color: white;
-      padding: 0.5rem 1rem;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: background 0.3s;
-    }
-    .login-btn:hover {
-      background-color: #e56612;
-    }
-    main {
-      max-width: 900px;
-      margin: 2rem auto;
-      padding: 0 1.5rem;
-      line-height: 1.6;
-    }
-    h1 {
-      font-size: 2.5rem;
-      border-left: 6px solid #f27c3c;
-      padding-left: 12px;
-      margin-bottom: 1.5rem;
-    }
-    h2 {
-      font-size: 1.8rem;
-      margin-top: 2rem;
-      color: #f27c3c;
-    }
-    p {
-      font-size: 1.1rem;
-      margin-bottom: 1rem;
-    }
-    footer {
-      text-align: center;
-      padding: 1rem;
-      background-color: #fafafa;
-      color: #777;
-      font-size: 0.9rem;
-      margin-top: 3rem;
-    }
-    @media (max-width: 600px) {
-      main {
-        width: 90%;
-      }
-      h1 {
-        font-size: 2rem;
-      }
-      h2 {
-        font-size: 1.5rem;
-      }
-    }
-  </style>
+  <meta name="description" content="Learn about Verve Travel Agency, our mission, and important safety information for travelers.">
+  <meta name="keywords" content="travel agency, about, safety, travel tips, booking">
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-<header>
-  <div><strong>Verve</strong></div>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="flights.html">Flights</a>
+<header role="banner" aria-label="Site header">
+  <div class="verve-title">Verve</div>
+  <nav role="navigation" aria-label="Primary navigation">
+    <a href="travelagencies.html">Travel Agencies</a>
     <a href="hotels.html">Hotels</a>
     <a href="about.html">About</a>
     <a href="login.html" class="login-btn">Login</a>
   </nav>
 </header>
-<main>
+<style>
+  .verve-title {
+    font-weight: 900;
+    font-size: 2.5rem;
+    color: #f27c3c;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    font-family: 'Segoe UI Black', 'Segoe UI Bold', 'Segoe UI', sans-serif;
+  }
+</style>
+<main role="main">
   <h1>About Us</h1>
   <p>Welcome to Verve, your trusted partner in exploring the world. We are dedicated to providing you with the best travel experiences, from flights and hotels to unforgettable destinations.</p>
   <p>Our team of travel experts works tirelessly to curate the finest travel packages and offers tailored to your preferences. Whether you're planning a relaxing vacation, a business trip, or an adventurous journey, we've got you covered.</p>
@@ -102,8 +39,13 @@
   <p>For your safety, please exercise caution when sharing personal information. Avoid sharing sensitive details that could potentially harm you or be misused. Always be vigilant during transactions and ensure you are dealing with legitimate parties.</p>
   <p>Never send money to unknown or unverified individuals. Stay alert to potential scams and deceivers. If something feels suspicious, do not proceed and contact us or the relevant authorities for assistance.</p>
 </main>
-<footer>
+<footer role="contentinfo">
   &copy; 2025 Verve. All rights reserved.
+  <div class="social-links" aria-label="Social media links" style="margin-top: 0.5rem;">
+    <a href="https://facebook.com" target="_blank" rel="noopener" aria-label="Facebook" style="margin: 0 0.5rem; color: #3b5998;">&#x1F426;</a>
+    <a href="https://twitter.com" target="_blank" rel="noopener" aria-label="Twitter" style="margin: 0 0.5rem; color: #1DA1F2;">&#x1F426;</a>
+    <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram" style="margin: 0 0.5rem; color: #E1306C;">&#x1F426;</a>
+  </div>
 </footer>
   <style>
     #chatButton {
@@ -131,4 +73,3 @@
   </style>
   <button id="chatButton" title="Chat with us" onclick="location.href='chat.html'">&#128172;</button>
 </body>
-</html>
