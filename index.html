@@ -173,9 +173,16 @@
         height: 160px;
       }
 
+      header nav {
+        display: flex;
+        align-items: center;
+        flex-wrap: nowrap;
+      }
+
       header nav a {
         margin: 0 0.5rem;
         font-size: 0.9rem;
+        white-space: nowrap;
       }
 
       .login-btn {
@@ -214,7 +221,7 @@
 
 <section class="section">
   <h2>Popular Destinations</h2>
-  <div class="destinations">
+    <div class="destinations">
     <div class="card">
       <img src="images/paris.jpg" alt="Paris">
       <div class="card-content">
@@ -251,13 +258,6 @@
       </div>
     </div>
     <div class="card">
-      <img src="images/capetown.jpg" alt="Cape Town">
-      <div class="card-content">
-        <h3>Cape Town, South Africa</h3>
-        <p>Known for its stunning landscapes and Table Mountain.</p>
-      </div>
-    </div>
-    <div class="card">
       <img src="images/barcelona2.jpg" alt="Barcelona">
       <div class="card-content">
         <h3>Barcelona, Spain</h3>
@@ -265,171 +265,10 @@
       </div>
     </div>
     <div class="card">
-      <img src="images/dubai.jpg" alt="Dubai">
-      <div class="card-content">
-        <h3>Dubai, UAE</h3>
-        <p>Known for luxury shopping, ultramodern architecture, and lively nightlife.</p>
-      </div>
-    </div>
-    <div class="card">
-      <img src="images/istanbul.jpg" alt="Istanbul">
-      <div class="card-content">
-        <h3>Istanbul, Turkey</h3>
-        <p>A city that straddles Europe and Asia across the Bosphorus Strait.</p>
-      </div>
-    </div>
-    <div class="card">
-      <img src="images/bangkok.jpg" alt="Bangkok">
-      <div class="card-content">
-        <h3>Bangkok, Thailand</h3>
-        <p>Known for ornate shrines and vibrant street life.</p>
-      </div>
-    </div>
-    <div class="card">
-      <img src="images/sanfrancisco.jpg" alt="San Francisco">
-      <div class="card-content">
-        <h3>San Francisco, USA</h3>
-        <p>Famous for the Golden Gate Bridge and hilly landscape.</p>
-      </div>
-    </div>
-    <div class="card">
-      <img src="images/venice.jpg" alt="Venice">
-      <div class="card-content">
-        <h3>Venice, Italy</h3>
-        <p>Known for its canals, gondolas, and Renaissance art.</p>
-      </div>
-    </div>
-    <div class="card">
-      <img src="images/prague.jpg" alt="Prague">
-      <div class="card-content">
-        <h3>Prague, Czech Republic</h3>
-        <p>Famous for its Old Town Square and medieval architecture.</p>
-      </div>
-    </div>
-    <div class="card">
-      <img src="images/amsterdam.jpg" alt="Amsterdam">
-      <div class="card-content">
-        <h3>Amsterdam, Netherlands</h3>
-        <p>Known for its canals, museums, and vibrant nightlife.</p>
-      </div>
-    </div>
-    <div class="card">
-      <img src="images/lisbon.jpg" alt="Lisbon">
-      <div class="card-content">
-        <h3>Lisbon, Portugal</h3>
-        <p>Famous for its hilly, coastal landscape and historic sites.</p>
-      </div>
-    </div>
-    <div class="card">
-      <img src="images/seoul.jpg" alt="Seoul">
-      <div class="card-content">
-        <h3>Seoul, South Korea</h3>
-        <p>A modern metropolis with a rich history and vibrant culture.</p>
-      </div>
-    </div>
-    <div class="card">
-      <img src="images/moscow.jpg" alt="Moscow">
-      <div class="card-content">
-        <h3>Moscow, Russia</h3>
-        <p>Known for its historic Red Square and Kremlin.</p>
-      </div>
-    </div>
-    <div class="card">
-      <img src="images/rio.jpg" alt="Rio de Janeiro">
-      <div class="card-content">
-        <h3>Rio de Janeiro, Brazil</h3>
-        <p>Famous for its Copacabana beach and Christ the Redeemer statue.</p>
-      </div>
-    </div>
-    <div class="card">
-      <img src="images/cairo.jpg" alt="Cairo">
-      <div class="card-content">
-        <h3>Cairo, Egypt</h3>
-        <p>Known for its ancient pyramids and rich history.</p>
-      </div>
-    </div>
-    <div class="card">
-      <img src="images/athens.jpg" alt="Athens">
-      <div class="card-content">
-        <h3>Athens, Greece</h3>
-        <p>Famous for its ancient ruins and vibrant culture.</p>
-      </div>
-    </div>
-    <div class="card">
-      <img src="images/berlin.jpg" alt="Berlin">
-      <div class="card-content">
-        <h3>Berlin, Germany</h3>
-        <p>Known for its art scene and modern history.</p>
-      </div>
-    </div>
-    <div class="card">
-      <img src="images/budapest.jpg" alt="Budapest">
-      <div class="card-content">
-        <h3>Budapest, Hungary</h3>
-        <p>Famous for its thermal baths and stunning architecture.</p>
-      </div>
-    </div>
-    <div class="card">
-      <img src="images/vienna.jpg" alt="Vienna">
-      <div class="card-content">
-        <h3>Vienna, Austria</h3>
-        <p>Known for its classical music heritage and imperial palaces.</p>
-      </div>
-    </div>
-    <div class="card">
-      <img src="images/florence.jpg" alt="Florence">
-      <div class="card-content">
-        <h3>Florence, Italy</h3>
-        <p>Famous for Renaissance art and architecture.</p>
-      </div>
-    </div>
-    <div class="card">
-      <img src="images/edinburgh.jpg" alt="Edinburgh">
-      <div class="card-content">
-        <h3>Edinburgh, Scotland</h3>
-        <p>Known for its historic and cultural attractions.</p>
-      </div>
-    </div>
-    <div class="card">
-      <img src="images/hanoi.jpg" alt="Hanoi">
-      <div class="card-content">
-        <h3>Hanoi, Vietnam</h3>
-        <p>Known for its centuries-old architecture and rich culture.</p>
-      </div>
-    </div>
-    <div class="card">
-      <img src="images/buenosaires.jpg" alt="Buenos Aires">
-      <div class="card-content">
-        <h3>Buenos Aires, Argentina</h3>
-        <p>Famous for its European-style architecture and tango music.</p>
-      </div>
-    </div>
-    <div class="card">
-      <img src="images/mexicocity.jpg" alt="Mexico City">
-      <div class="card-content">
-        <h3>Mexico City, Mexico</h3>
-        <p>Known for its rich history and vibrant culture.</p>
-      </div>
-    </div>
-    <div class="card">
-      <img src="images/toronto.jpg" alt="Toronto">
-      <div class="card-content">
-        <h3>Toronto, Canada</h3>
-        <p>Famous for its skyline and multicultural atmosphere.</p>
-      </div>
-    </div>
-    <div class="card">
-      <img src="images/vancouver.jpg" alt="Vancouver">
-      <div class="card-content">
-        <h3>Vancouver, Canada</h3>
-        <p>Known for its natural beauty and outdoor activities.</p>
-      </div>
-    </div>
-    <div class="card">
       <img src="images/melbourne.jpg" alt="Melbourne">
       <div class="card-content">
         <h3>Melbourne, Australia</h3>
-        <p>Famous for its arts scene and coffee culture.</p>
+      <p>Famous for its arts scene and coffee culture.</p>
       </div>
     </div>
   </div>
