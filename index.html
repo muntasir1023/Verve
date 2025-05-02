@@ -4,238 +4,24 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Verve - Home</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      margin: 0;
-      background-color: #fffdf9;
-      color: #333;
-    }
-
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 2rem;
-      background-color: #fff;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-    }
-
-    header nav a {
-      margin: 0 1rem;
-      text-decoration: none;
-      color: #333;
-      font-weight: 500;
-    }
-
-    .login-btn {
-      background-color: #f27c3c;
-      color: white;
-      padding: 0.5rem 1rem;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: background 0.3s;
-    }
-
-    .login-btn:hover {
-      background-color: #e56612;
-    }
-
-    .hero {
-      text-align: center;
-      padding: 6rem 1rem;
-      min-height: 400px;
-      background-color: #f27c3c;
-      background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.1)), url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1470&q=80');
-      background-size: cover;
-      background-position: center;
-      color: white;
-    }
-
-    .hero h1 {
-      font-size: 3.2rem;
-      margin-bottom: 1rem;
-      text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
-    }
-
-    .hero p {
-      font-size: 1.25rem;
-      max-width: 650px;
-      margin: 0 auto;
-      text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
-    }
-
-    .section {
-      padding: 3rem 1.5rem;
-      max-width: 1200px;
-      margin: auto;
-    }
-
-    .section h2 {
-      font-size: 2rem;
-      border-left: 6px solid #f27c3c;
-      padding-left: 12px;
-      margin-bottom: 2rem;
-    }
-
-    .destinations {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 2rem;
-      justify-content: center;
-    }
-
-    .card {
-      flex: 0 0 220px;
-      width: 220px;
-      height: 320px;
-      background-color: white;
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
-      cursor: pointer;
-      position: relative;
-      will-change: transform, box-shadow;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .card:hover {
-      transform: translateY(-10px) scale(1.05);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
-      transition-timing-function: ease-in-out;
-    }
-
-    .card img {
-      width: 100%;
-      height: 180px;
-      object-fit: contain;
-      transition: transform 0.4s ease;
-      flex-shrink: 0;
-      padding: 5px;
-      background-color: #f9f9f9;
-    }
-
-    .card:hover img {
-      transform: scale(1.08);
-    }
-
-    .card h3, .card p {
-      transition: color 0.4s ease, transform 0.4s ease;
-      margin: 0;
-      padding: 0;
-      overflow-wrap: break-word;
-      word-wrap: break-word;
-      -webkit-hyphens: auto;
-      hyphens: auto;
-    }
-
-    .card-content {
-      padding: 0.8rem 1rem 1rem;
-      flex-grow: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .card:hover h3 {
-      color: #f27c3c;
-      transform: translateY(-3px);
-    }
-
-    .card:hover p {
-      color: #333;
-    }
-
-    .cta-button {
-      display: inline-block;
-      background-color: #f27c3c;
-      color: white;
-      padding: 0.75rem 1.5rem;
-      font-size: 1rem;
-      border-radius: 8px;
-      text-decoration: none;
-      margin-top: 2.5rem;
-      transition: background 0.3s ease;
-    }
-
-    .cta-button:hover {
-      background-color: #e5691a;
-    }
-
-    footer {
-      text-align: center;
-      padding: 1rem;
-      background-color: #fafafa;
-      color: #777;
-      font-size: 0.9rem;
-    }
-
-    @media (max-width: 768px) {
-      .destinations {
-        flex-direction: column;
-        align-items: center;
-      }
-
-      .card {
-        width: 90%;
-        max-width: 180px;
-      }
-
-      .card img {
-        height: 160px;
-      }
-
-      header nav {
-        display: flex;
-        align-items: center;
-        flex-wrap: nowrap;
-      }
-
-      header nav a {
-        margin: 0 0.5rem;
-        font-size: 0.9rem;
-        white-space: nowrap;
-      }
-
-      .login-btn {
-        padding: 0.3rem 0.8rem;
-        font-size: 0.9rem;
-      }
-
-      .hero h1 {
-        font-size: 2.4rem;
-      }
-
-      .hero p {
-        font-size: 1.1rem;
-      }
-    }
-</style>
+  <meta name="description" content="Verve Travel Agency - Book flights, hotels, and explore popular destinations worldwide. Your journey begins here.">
+  <meta name="keywords" content="travel, flights, hotels, destinations, vacation, booking, tourism">
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
 </head>
 <body>
-  <header>
+  <header role="banner" aria-label="Site header">
   <div class="verve-title">Verve</div>
-  <nav>
-    <a href="flights.html">Flights</a>
+  <nav role="navigation" aria-label="Primary navigation">
+    <a href="travelagencies.html">Flights</a>
     <a href="hotels.html">Hotels</a>
     <a href="about.html">About</a>
     <a href="login.html" class="login-btn">Login</a>
   </nav>
 </header>
-  <style>
-    .verve-title {
-      font-weight: 900;
-      font-size: 2.5rem;
-      color: #f27c3c;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-      font-family: 'Segoe UI Black', 'Segoe UI Bold', 'Segoe UI', sans-serif;
-    }
-  </style>
 
+<main role="main">
 <section class="hero">
   <h1>Explore the World with Us</h1>
   <p>Your journey begins here. Book flights, hotels, and unforgettable experiences at top destinations around the globe.</p>
@@ -318,8 +104,13 @@
   <a class="cta-button" href="#">Start Planning</a>
 </section>
 
-<footer>
+<footer role="contentinfo">
   &copy; 2025 Verve. All rights reserved.
+  <div class="social-links" aria-label="Social media links" style="margin-top: 0.5rem;">
+    <a href="https://facebook.com" target="_blank" rel="noopener" aria-label="Facebook" style="margin: 0 0.5rem; color: #3b5998;">&#x1F426;</a>
+    <a href="https://twitter.com" target="_blank" rel="noopener" aria-label="Twitter" style="margin: 0 0.5rem; color: #1DA1F2;">&#x1F426;</a>
+    <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram" style="margin: 0 0.5rem; color: #E1306C;">&#x1F426;</a>
+  </div>
 </footer>
 
   <style>
