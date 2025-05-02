@@ -311,6 +311,7 @@
 <header>
   <div class="verve-title">Verve</div>
   <nav>
+    <a href="index.html">Home</a>
     <a href="travelagencies.html">Travel Agencies</a>
     <a href="hotels.html">Hotels</a>
     <a href="about.html">About</a>
@@ -334,7 +335,20 @@
     </div>
   </div>
   <div class="chat-messages" id="chatMessages">
-    <div class="message system">Welcome to Travel Agency chat support! How can we assist you today?</div>
+    <div class="message system">Here are some questions you can ask me:</div>
+    <div class="message system">- What are the best travel destinations?</div>
+    <div class="message system">- Can you suggest hotels in Paris?</div>
+    <div class="message system">- How can I find cheap flights?</div>
+    <div class="message system">- What activities are available in Tokyo?</div>
+    <div class="message system">- How do I change or cancel my booking?</div>
+    <div class="message system">Feel free to type your question or select one of the above!</div>
+    <div class="message system">Let me start by answering some of these:</div>
+    <div class="message system">The best travel destinations currently include Paris, Tokyo, and Sydney, known for their unique culture and attractions.</div>
+    <div class="message system">For hotels in Paris, I recommend the Ritz Paris, Le Meurice, and Hotel Lutetia for luxury stays.</div>
+    <div class="message system">To find cheap flights, consider booking in advance, using flight comparison websites, and being flexible with your travel dates.</div>
+    <div class="message system">In Tokyo, popular activities include visiting the historic temples, exploring Akihabara for electronics and anime, and enjoying sushi at Tsukiji Market.</div>
+    <div class="message system">If you need to change or cancel your booking, please provide your booking details and I can assist you further.</div>
+    <div class="message system">Feel free to ask follow-up questions or any other travel-related queries!</div>
   </div>
   <div class="chat-input">
     <div class="attachment-options">
@@ -548,13 +562,39 @@
     if (msg.includes('budget')) {
       return "Sure! Please tell me your budget range, and I can suggest the best destinations for you.";
     } else if (msg.match(/(suggest|recommend|best destinations)/)) {
-      return "Based on your preferences, I recommend visiting Paris, Tokyo, and Sydney for an unforgettable experience.";
+      return "Based on your preferences, I recommend visiting Paris, Tokyo, and Sydney for an unforgettable experience. Would you like to know about hotels or activities in any of these destinations?";
     } else if (msg.includes('help')) {
       return "I'm here to help! You can ask me about travel budgets, destination suggestions, and more.";
     } else if (msg.includes('thank')) {
       return "You're welcome! If you have more questions, feel free to ask.";
+    } else if (msg.includes('flights')) {
+      return "Looking for flights? I can help you find the best deals and options. Do you have a specific destination or date in mind?";
+    } else if (msg.includes('hotels')) {
+      return "Need hotel recommendations? I can suggest top-rated hotels based on your destination. For example, in Paris, the Ritz Paris and Le Meurice are excellent choices. Would you like more options?";
+    } else if (msg.includes('activities')) {
+      return "Interested in activities? I can provide popular tours and experiences at your destination. For Tokyo, visiting historic temples and exploring Akihabara are popular. Would you like details on other destinations?";
+    } else if (msg.includes('cancel') || msg.includes('change')) {
+      return "If you need to cancel or change a booking, please provide your booking details. I can guide you through the process or connect you with support.";
+    } else if (msg.includes('contact')) {
+      return "You can contact our support team at support@vervetravel.com or call 123-456-7890. Is there anything else I can assist you with?";
+    } else if (msg.includes("didn't understand") || msg.includes("don't understand") || msg.includes("not understand") || msg.includes("not clear")) {
+      return "I'm sorry for the confusion. Could you please clarify your question or provide more details? I'm here to assist you with your travel plans.";
+    } else if (msg.includes('best travel destinations')) {
+      return "The best travel destinations currently include Paris, Tokyo, and Sydney, known for their unique culture and attractions.";
+    } else if (msg.includes('hotels in paris')) {
+      return "For hotels in Paris, I recommend the Ritz Paris, Le Meurice, and Hotel Lutetia for luxury stays.";
+    } else if (msg.includes('cheap flights')) {
+      return "To find cheap flights, consider booking in advance, using flight comparison websites, and being flexible with your travel dates.";
+    } else if (msg.includes('activities in tokyo')) {
+      return "In Tokyo, popular activities include visiting the historic temples, exploring Akihabara for electronics and anime, and enjoying sushi at Tsukiji Market.";
+    } else if (msg.includes('change or cancel booking')) {
+      return "If you need to change or cancel your booking, please provide your booking details and I can assist you further.";
+    } else if (msg.includes('hello') || msg.includes('hi')) {
+      return "Hello! How can I assist you with your travel plans today?";
+    } else if (msg.includes('bye') || msg.includes('goodbye')) {
+      return "Goodbye! Have a great day and safe travels!";
     } else {
-      return "Could you please provide more details or specify your preferences?";
+      return "I'm here to help you plan the perfect trip. Please share more details or let me know your preferences so I can assist you better.";
     }
   }
 
