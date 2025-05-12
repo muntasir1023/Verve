@@ -29,6 +29,17 @@
       backdrop-filter: saturate(180%) blur(20px);
       border-radius: 0 0 15px 15px;
     }
+    header nav {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      -ms-overflow-style: none;  /* IE and Edge */
+      scrollbar-width: none;  /* Firefox */
+    }
+    header nav::-webkit-scrollbar {
+      display: none; /* Chrome, Safari and Opera */
+    }
     header nav a {
       flex: 0 0 auto;
       scroll-snap-align: start;
