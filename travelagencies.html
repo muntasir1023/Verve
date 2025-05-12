@@ -29,13 +29,28 @@
       backdrop-filter: saturate(180%) blur(20px);
       border-radius: 0 0 15px 15px;
     }
+    header nav {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      -ms-overflow-style: none;  /* IE and Edge */
+      scrollbar-width: none;  /* Firefox */
+    }
+    header nav::-webkit-scrollbar {
+      display: none; /* Chrome, Safari and Opera */
+    }
     header nav a {
-      margin: 0 1rem;
+      flex: 0 0 auto;
+      scroll-snap-align: start;
+      margin: 0 0.5rem;
+      padding: 0.5rem 1rem;
       text-decoration: none;
       color: #333;
       font-weight: 600;
       position: relative;
-      transition: color 0.3s ease;
+      transition: color 0.3s ease, transform 0.3s ease;
+      border-radius: 8px;
     }
     header nav a::after {
       content: '';
@@ -48,8 +63,16 @@
       background: #f27c3c;
       transition: width 0.3s ease;
       -webkit-transition: width 0.3s ease;
+      border-radius: 2px;
     }
-    header nav a:hover::after {
+    header nav a:hover,
+    header nav a:focus {
+      color: #f27c3c;
+      transform: scale(1.1);
+      outline: none;
+    }
+    header nav a:hover::after,
+    header nav a:focus::after {
       width: 100%;
       left: 0;
       background: #f27c3c;
