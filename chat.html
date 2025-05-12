@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Vervego - Chat Support</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+      color: #333;
+      animation: fadeIn 0.8s ease forwards;
+      opacity: 0;
+    }
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: rgba(255, 255, 255, 0.85);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      backdrop-filter: saturate(180%) blur(20px);
+      border-radius: 0 0 15px 15px;
+    }
+    header nav a {
+      margin: 0 1rem;
+      text-decoration: none;
+      color: #333;
+      font-weight: 600;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+    header nav a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      display: block;
+      margin-top: 5px;
+      right: 0;
+      background: #f27c3c;
+      transition: width 0.3s ease;
+      -webkit-transition: width 0.3s ease;
+    }
+    header nav a:hover::after {
+      width: 100%;
+      left: 0;
+      background: #f27c3c;
+    }
+    .verve-title {
+      font-weight: 900;
+      font-size: 2.5rem;
+      color: #f27c3c;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      font-family: 'Segoe UI Black', 'Segoe UI Bold', 'Segoe UI', sans-serif;
+    }
+    .chat-container {
+      max-width: 900px;
+      margin: 2rem auto;
+      border-radius: 20px;
+      box-shadow: 0 10px 20px rgba(242, 124, 60, 0.3);
+      overflow: hidden;
+      background: linear-gradient(135deg, #f9f9f9 0%, #ffe6d1 100%);
+      display: flex;
+      flex-direction: column;
+      height: 600px;
+      animation: fadeInUp 0.8s ease forwards;
+      animation-delay: 0.3s;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    .chat-header {
+      background-color: #f27c3c;
+      color: white;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-radius: 20px 20px 0 0;
+    }
+    .chat-header h1 {
+      margin: 0;
+      font-size: 1.5rem;
+      border-left: none;
+      padding-left: 0;
+    }
+    .chat-status {
+      display: flex;
+      align-items: center;
+      font-size: 0.9rem;
+    }
+    .status-dot {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: #4caf50;
+      margin-right: 8px;
+    }
+    .chat-messages {
+      flex-grow: 1;
+      overflow-y: auto;
+      padding: 1.5rem;
+      background-color: #f9f9f9;
+    }
+    .message {
+      margin-bottom: 1rem;
+      max-width: 70%;
+      padding: 0.75rem 1rem;
+      border-radius: 18px;
+      position: relative;
+      word-wrap: break-word;
+    }
+    .message.user {
+      background-color: #f27c3c;
+      color: white;
+      margin-left: auto;
+      border-bottom-right-radius: 4px;
+    }
+    .message.agent {
+      background-color: #e0e0e0;
+      margin-right: auto;
+      border-bottom-left-radius: 4px;
+    }
+    .message.system {
+      background-color: #f5f5f5;
+      margin: 0 auto 1rem;
+      text-align: center;
+      max-width: 90%;
+      border-radius: 8px;
+      color: #666;
+    }
+    .timestamp {
+      display: block;
+      font-size: 0.7rem;
+      margin-top: 4px;
+      opacity: 0.8;
+    }
+    .message.user .timestamp {
+      text-align: right;
+      color: rgba(255,255,255,0.8);
+    }
+    .message.agent .timestamp {
+      text-align: left;
+      color: rgba(0,0,0,0.6);
+    }
+    .chat-input {
+      padding: 1rem;
+      border-top: 1px solid #eee;
+      background-color: white;
+      display: flex;
+      flex-direction: column;
+    }
+    #messageInput {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      resize: none;
+      font-family: inherit;
+      margin-bottom: 8px;
+      height: 80px;
+    }
+    #messageInput:focus {
+      outline: none;
+      border-color: #f27c3c;
+      box-shadow: 0 0 0 2px rgba(242, 124, 60, 0.2);
+    }
+    #sendMessage {
+      background-color: #f27c3c;
+      color: white;
+      border: none;
+      padding: 0.5rem 1.5rem;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 800;
+      transition: background-color 0.2s;
+      align-self: flex-end;
+    }
+    #sendMessage:hover {
+      background-color: #e56612;
+    }
+    .attachment-options {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 8px;
+      align-items: center;
+    }
+    .attach-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #666;
+      padding: 6px;
+      border-radius: 50%;
+      transition: all 0.2s;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .attach-btn:hover {
+      background-color: #f0f0f0;
+      color: #f27c3c;
+    }
+    .attach-btn input[type="file"] {
+      display: none;
+    }
+    .preview-area {
+      margin-top: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .attachment-preview {
+      position: relative;
+      width: 100px;
+      height: 100px;
+      border-radius: 12px;
+      overflow: hidden;
+      background-color: #f5f5f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: #666;
+      text-align: center;
+      padding: 4px;
+      word-break: break-word;
+    }
+    .attachment-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .attachment-preview .remove-btn {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      background-color: rgba(0,0,0,0.5);
+      color: white;
+      border: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 12px;
+    }
+    footer {
+      text-align: center;
+      padding: 0.4rem 0;
+      background: #f27c3c;
+      color: white;
+      font-weight: 600;
+      font-size: 1rem;
+      box-shadow: 0 -1px 4px rgba(0,0,0,0.1);
+      border-radius: 15px 15px 0 0;
+      position: fixed;
+      width: 100%;
+      bottom: 0;
+      left: 0;
+      z-index: 100;
+    }
+  </style>
+</head>
+<body>
+<header role="banner" aria-label="Site header">
+  <div class="verve-title">Vervego</div>
+  <nav role="navigation" aria-label="Primary navigation">
+    <a href="index.html">Home</a>
+    <a href="travelagencies.html">Travel Agencies</a>
+    <a href="hotels.html">Hotels</a>
+    <a href="about.html">About</a>
+  </nav>
+</header>
+<div class="chat-container">
+  <div class="chat-header">
+    <h1>Chat Support</h1>
+    <div class="chat-status">
+      <span class="status-dot"></span> Online
+    </div>
+  </div>
+  <div class="chat-messages" id="chatMessages">
+    <div class="message system">Here are some questions you can ask me:</div>
+    <div class="message system">- What are the best travel destinations?</div>
+    <div class="message system">- Can you suggest hotels in Paris?</div>
+    <div class="message system">- How can I find cheap flights?</div>
+    <div class="message system">- What activities are available in Tokyo?</div>
+    <div class="message system">- How do I change or cancel my booking?</div>
+    <div class="message system">Feel free to type your question or select one of the above!</div>
+    <div class="message system">Let me start by answering some of these:</div>
+    <div class="message system">The best travel destinations currently include Paris, Tokyo, and Sydney, known for their unique culture and attractions.</div>
+    <div class="message system">For hotels in Paris, I recommend the Ritz Paris, Le Meurice, and Hotel Lutetia for luxury stays.</div>
+    <div class="message system">To find cheap flights, consider booking in advance, using flight comparison websites, and being flexible with your travel dates.</div>
+    <div class="message system">In Tokyo, popular activities include visiting the historic temples, exploring Akihabara for electronics and anime, and enjoying sushi at Tsukiji Market.</div>
+    <div class="message system">If you need to change or cancel your booking, please provide your booking details and I can assist you further.</div>
+    <div class="message system">Feel free to ask follow-up questions or any other travel-related queries!</div>
+  </div>
+  <div class="chat-input">
+    <div class="attachment-options">
+      <label class="attach-btn" title="Attach Image">
+        📷
+        <input type="file" id="imageInput" accept="image/*" multiple>
+      </label>
+      <label class="attach-btn" title="Attach Video">
+        🎥
+        <input type="file" id="videoInput" accept="video/*" multiple>
+      </label>
+      <label class="attach-btn" title="Attach File">
+        📎
+        <input type="file" id="fileInput" multiple>
+      </label>
+      <button id="recordBtn" class="record-btn" title="Record Voice Message">🎤</button>
+      <span id="recordTimer" class="record-timer"></span>
+    </div>
+    <textarea id="messageInput" placeholder="Type your message here..."></textarea>
+    <div class="preview-area" id="previewArea"></div>
+    <button id="sendMessage">Send</button>
+  </div>
+</div>
+<script>
+  const chatMessages = document.getElementById('chatMessages');
+  const messageInput = document.getElementById('messageInput');
+  const sendMessageBtn = document.getElementById('sendMessage');
+  const previewArea = document.getElementById('previewArea');
+
+  const imageInput = document.getElementById('imageInput');
+  const videoInput = document.getElementById('videoInput');
+  const fileInput = document.getElementById('fileInput');
+  const recordBtn = document.getElementById('recordBtn');
+  const recordTimer = document.getElementById('recordTimer');
+
+  let attachments = [];
+  let mediaRecorder = null;
+  let audioChunks = [];
+  let recording = false;
+  let recordStartTime = null;
+  let recordInterval = null;
+  const MAX_RECORD_TIME = 5 * 60 * 1000; // 5 minutes in ms
+
+  function addMessage(text, sender, attachedFiles = [], audioBlob = null) {
+    const messageDiv = document.createElement('div');
+    messageDiv.classList.add('message', sender);
+
+    if (text) {
+      const textNode = document.createTextNode(text);
+      messageDiv.appendChild(textNode);
+    }
+
+    // Render attachments if any
+    attachedFiles.forEach(file => {
+      const attachmentDiv = document.createElement('div');
+      attachmentDiv.classList.add('attachment-preview');
+
+      if (file.type.startsWith('image/')) {
+        const img = document.createElement('img');
+        img.src = URL.createObjectURL(file);
+        img.onload = () => URL.revokeObjectURL(img.src);
+        attachmentDiv.appendChild(img);
+      } else if (file.type.startsWith('video/')) {
+        const video = document.createElement('video');
+        video.src = URL.createObjectURL(file);
+        video.controls = true;
+        video.style.maxWidth = '100%';
+        video.style.maxHeight = '100px';
+        video.onload = () => URL.revokeObjectURL(video.src);
+        attachmentDiv.appendChild(video);
+      } else {
+        // For other files, show file name
+        attachmentDiv.textContent = file.name;
+      }
+      messageDiv.appendChild(attachmentDiv);
+    });
+
+    // Render audio message if present
+    if (audioBlob) {
+      const audioDiv = document.createElement('div');
+      audioDiv.classList.add('attachment-preview');
+      const audio = document.createElement('audio');
+      audio.controls = true;
+      audio.src = URL.createObjectURL(audioBlob);
+      audioDiv.appendChild(audio);
+      messageDiv.appendChild(audioDiv);
+    }
+
+    const timestampSpan = document.createElement('span');
+    timestampSpan.classList.add('timestamp');
+    const now = new Date();
+    timestampSpan.textContent = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+    messageDiv.appendChild(timestampSpan);
+
+    chatMessages.appendChild(messageDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
+  function clearPreviews() {
+    previewArea.innerHTML = '';
+  }
+
+  function renderPreviews() {
+    clearPreviews();
+    attachments.forEach((file, index) => {
+      const previewDiv = document.createElement('div');
+      previewDiv.classList.add('attachment-preview');
+
+      if (file.type.startsWith('image/')) {
+        const img = document.createElement('img');
+        img.src = URL.createObjectURL(file);
+        img.onload = () => URL.revokeObjectURL(img.src);
+        previewDiv.appendChild(img);
+      } else if (file.type.startsWith('video/')) {
+        const video = document.createElement('video');
+        video.src = URL.createObjectURL(file);
+        video.controls = true;
+        video.style.maxWidth = '100%';
+        video.style.maxHeight = '100px';
+        video.onload = () => URL.revokeObjectURL(video.src);
+        previewDiv.appendChild(video);
+      } else {
+        previewDiv.textContent = file.name;
+      }
+
+      const removeBtn = document.createElement('button');
+      removeBtn.classList.add('remove-btn');
+      removeBtn.textContent = '×';
+      removeBtn.title = 'Remove attachment';
+      removeBtn.addEventListener('click', () => {
+        attachments.splice(index, 1);
+        renderPreviews();
+      });
+
+      previewDiv.appendChild(removeBtn);
+      previewArea.appendChild(previewDiv);
+    });
+  }
+
+  function handleFileInputChange(event) {
+    const files = Array.from(event.target.files);
+    attachments = attachments.concat(files);
+    renderPreviews();
+    event.target.value = ''; // Reset input
+  }
+
+  imageInput.addEventListener('change', handleFileInputChange);
+  videoInput.addEventListener('change', handleFileInputChange);
+  fileInput.addEventListener('change', handleFileInputChange);
+
+  function updateRecordTimer() {
+    if (!recordStartTime) return;
+    const elapsed = Date.now() - recordStartTime;
+    const seconds = Math.floor((elapsed / 1000) % 60);
+    const minutes = Math.floor(elapsed / 60000);
+    recordTimer.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+    if (elapsed >= MAX_RECORD_TIME) {
+      stopRecording();
+    }
+  }
+
+  function startRecording() {
+    if (recording) return;
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      alert('Your browser does not support audio recording.');
+      return;
+    }
+    navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
+      mediaRecorder = new MediaRecorder(stream);
+      audioChunks = [];
+      mediaRecorder.ondataavailable = e => {
+        audioChunks.push(e.data);
+      };
+      mediaRecorder.onstop = () => {
+        const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+        addMessage('', 'user', [], audioBlob);
+        stream.getTracks().forEach(track => track.stop());
+      };
+      mediaRecorder.start();
+      recording = true;
+      recordStartTime = Date.now();
+      recordBtn.classList.add('recording');
+      recordTimer.textContent = '0:00';
+      recordInterval = setInterval(updateRecordTimer, 1000);
+    }).catch(err => {
+      alert('Could not start audio recording: ' + err.message);
+    });
+  }
+
+  function stopRecording() {
+    if (!recording) return;
+    mediaRecorder.stop();
+    recording = false;
+    recordStartTime = null;
+    clearInterval(recordInterval);
+    recordTimer.textContent = '';
+    recordBtn.classList.remove('recording');
+  }
+
+  recordBtn.addEventListener('click', () => {
+    if (recording) {
+      stopRecording();
+    } else {
+      startRecording();
+    }
+  });
+
+  function getAgentResponse(userMessage) {
+    const msg = userMessage.toLowerCase();
+
+    if (msg.includes('budget')) {
+      return "Sure! Please tell me your budget range, and I can suggest the best destinations for you.";
+    } else if (msg.match(/(suggest|recommend|best destinations)/)) {
+      return "Based on your preferences, I recommend visiting Paris, Tokyo, and Sydney for an unforgettable experience. Would you like to know about hotels or activities in any of these destinations?";
+    } else if (msg.includes('help')) {
+      return "I'm here to help! You can ask me about travel budgets, destination suggestions, and more.";
+    } else if (msg.includes('thank')) {
+      return "You're welcome! If you have more questions, feel free to ask.";
+    } else if (msg.includes('flights')) {
+      return "Looking for flights? I can help you find the best deals and options. Do you have a specific destination or date in mind?";
+    } else if (msg.includes('hotels')) {
+      return "Need hotel recommendations? I can suggest top-rated hotels based on your destination. For example, in Paris, the Ritz Paris and Le Meurice are excellent choices. Would you like more options?";
+    } else if (msg.includes('activities')) {
+      return "Interested in activities? I can provide popular tours and experiences at your destination. For Tokyo, visiting the historic temples and exploring Akihabara are popular. Would you like details on other destinations?";
+    } else if (msg.includes('cancel') || msg.includes('change')) {
+      return "If you need to cancel or change a booking, please provide your booking details. I can guide you through the process or connect you with support.";
+    } else if (msg.includes('contact')) {
+      return "You can contact our support team at support@vervetravel.com or call 123-456-7890. Is there anything else I can assist you with?";
+    } else if (msg.includes("didn't understand") || msg.includes("don't understand") || msg.includes("not understand") || msg.includes("not clear")) {
+      return "I'm sorry for the confusion. Could you please clarify your question or provide more details? I'm here to assist you with your travel plans.";
+    } else if (msg.includes('best travel destinations')) {
+      return "The best travel destinations currently include Paris, Tokyo, and Sydney, known for their unique culture and attractions.";
+    } else if (msg.includes('hotels in paris')) {
+      return "For hotels in Paris, I recommend the Ritz Paris, Le Meurice, and Hotel Lutetia for luxury stays.";
+    } else if (msg.includes('cheap flights')) {
+      return "To find cheap flights, consider booking in advance, using flight comparison websites, and being flexible with your travel dates.";
+    } else if (msg.includes('activities in tokyo')) {
+      return "In Tokyo, popular activities include visiting the historic temples, exploring Akihabara for electronics and anime, and enjoying sushi at Tsukiji Market.";
+    } else if (msg.includes('change or cancel booking')) {
+      return "If you need to change or cancel your booking, please provide your booking details and I can assist you further.";
+    } else if (msg.includes('hello') || msg.includes('hi')) {
+      return "Hello! How can I assist you with your travel plans today?";
+    } else if (msg.includes('bye') || msg.includes('goodbye')) {
+      return "Goodbye! Have a great day and safe travels!";
+    } else {
+      return "I'm here to help you plan the perfect trip. Please share more details or let me know your preferences so I can assist you better.";
+    }
+  }
+
+  sendMessageBtn.addEventListener('click', () => {
+    const message = messageInput.value.trim();
+    if (message === '' && attachments.length === 0) return;
+
+    addMessage(message, 'user', attachments);
+    messageInput.value = '';
+    attachments = [];
+    clearPreviews();
+
+    // Generate agent response based on user message
+    setTimeout(() => {
+      const response = getAgentResponse(message);
+      addMessage(response, 'agent');
+    }, 1000);
+  });
+
+  messageInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      sendMessageBtn.click();
+    }
+  });
+</script>
+</body>
+</html>

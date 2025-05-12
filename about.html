@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Vervego - About</title>
+  <meta name="description" content="Learn about Vervego Travel Agency, our mission, and important safety information for travelers.">
+  <meta name="keywords" content="travel agency, about, safety, travel tips, booking">
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+      color: #333;
+      animation: fadeIn 0.8s ease forwards;
+      opacity: 0;
+    }
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: rgba(255, 255, 255, 0.85);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      backdrop-filter: saturate(180%) blur(20px);
+      border-radius: 0 0 15px 15px;
+    }
+    header nav a {
+      margin: 0 1rem;
+      text-decoration: none;
+      color: #333;
+      font-weight: 600;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+    header nav a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      display: block;
+      margin-top: 5px;
+      right: 0;
+      background: #f27c3c;
+      transition: width 0.3s ease;
+      -webkit-transition: width 0.3s ease;
+    }
+    header nav a:hover::after {
+      width: 100%;
+      left: 0;
+      background: #f27c3c;
+    }
+    main {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+      animation: fadeInUp 0.8s ease forwards;
+      animation-delay: 0.3s;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    h1 {
+      font-size: 2.8rem;
+      border-left: 8px solid #f27c3c;
+      padding-left: 16px;
+      margin-bottom: 2.5rem;
+      color: #fff;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.3);
+    }
+    p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #7a4a00;
+      margin-bottom: 1rem;
+    }
+    footer {
+      text-align: center;
+      padding: 0.4rem 0;
+      background: #f27c3c;
+      color: white;
+      font-weight: 600;
+      font-size: 1rem;
+      box-shadow: 0 -1px 4px rgba(0,0,0,0.1);
+      border-radius: 15px 15px 0 0;
+      position: fixed;
+      width: 100%;
+      bottom: 0;
+      left: 0;
+      z-index: 100;
+    }
+    .verve-title {
+      font-weight: 900;
+      font-size: 2.5rem;
+      color: #f27c3c;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      font-family: 'Segoe UI Black', 'Segoe UI Bold', 'Segoe UI', sans-serif;
+    }
+    #chatButton {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #f27c3c;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      font-size: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      transition: background-color 0.3s ease;
+    }
+    #chatButton:hover {
+      background-color: #e56612;
+    }
+  </style>
+</head>
+<body>
+<header role="banner" aria-label="Site header">
+  <div class="verve-title">Vervego</div>
+  <nav role="navigation" aria-label="Primary navigation">
+    <a href="index.html">Home</a>
+    <a href="travelagencies.html">Travel Agencies</a>
+    <a href="hotels.html">Hotels</a>
+    <a href="about.html">About</a>
+  </nav>
+</header>
+<main role="main">
+  <h1>About Us</h1>
+  <p>Welcome to Vervego, your trusted partner in exploring the world. We are dedicated to providing you with the best travel experiences, from flights and hotels to unforgettable destinations.</p>
+  <p>Our team of travel experts works tirelessly to curate the finest travel packages and offers tailored to your preferences. Whether you're planning a relaxing vacation, a business trip, or an adventurous journey, we've got you covered.</p>
+  <p>We believe that travel enriches lives and broadens horizons. Our mission is to make your travel planning seamless, enjoyable, and memorable.</p>
+
+  <h2>Important Information and Precautions</h2>
+  <p>Please note that we do not personally handle any payments, bookings, or transactions such as flights, hotels, or other travel services. Our role is to connect you with verified, safe, and trustworthy travel agencies from around the globe who will assist you with your travel needs.</p>
+  <p>For your safety, please exercise caution when sharing personal information. Avoid sharing sensitive details that could potentially harm you or be misused. Always be vigilant during transactions and ensure you are dealing with legitimate parties.</p>
+  <p>Never send money to unknown or unverified individuals. Stay alert to potential scams and deceivers. If something feels suspicious, do not proceed and contact us or the relevant authorities for assistance.</p>
+</main>
+<footer role="contentinfo">
+  &copy; 2025 Vervego. All rights reserved.
+</footer>
+<button id="chatButton" title="Chat with us" onclick="location.href='chat.html'">&#128172;</button>
+</body>
+</html>

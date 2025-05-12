@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Vervego - Home</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+      color: #333;
+      animation: fadeIn 0.8s ease forwards;
+      opacity: 0;
+    }
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: rgba(255, 255, 255, 0.85);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      backdrop-filter: saturate(180%) blur(20px);
+      border-radius: 0 0 15px 15px;
+    }
+    header nav a {
+      margin: 0 1rem;
+      text-decoration: none;
+      color: #333;
+      font-weight: 600;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+    header nav a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      display: block;
+      margin-top: 5px;
+      right: 0;
+      background: #f27c3c;
+      transition: width 0.3s ease;
+      -webkit-transition: width 0.3s ease;
+    }
+    header nav a:hover::after {
+      width: 100%;
+      left: 0;
+      background: #f27c3c;
+    }
+    main {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+      animation: fadeInUp 0.8s ease forwards;
+      animation-delay: 0.3s;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    h1 {
+      font-size: 2.8rem;
+      border-left: 8px solid #f27c3c;
+      padding-left: 16px;
+      margin-bottom: 2.5rem;
+      color: #fff;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.3);
+    }
+    .destinations-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .destination-card {
+      background: linear-gradient(135deg, #f9f9f9 0%, #ffe6d1 100%);
+      border-radius: 20px;
+      box-shadow: 0 10px 20px rgba(242, 124, 60, 0.3);
+      opacity: 0;
+      animation: fadeInUp 0.8s ease forwards;
+      animation-delay: 0.5s;
+      transform: translateY(20px);
+      overflow: hidden;
+    }
+    .destination-image {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 20px 20px 0 0;
+    }
+    .destination-info {
+      padding: 1rem;
+      color: #7a4a00;
+    }
+    .destination-name {
+      font-weight: 700;
+      font-size: 1.3rem;
+      margin-bottom: 0.3rem;
+    }
+    .destination-description {
+      font-size: 1rem;
+    }
+    footer {
+      text-align: center;
+      padding: 0.4rem 0;
+      background: #f27c3c;
+      color: white;
+      font-weight: 600;
+      font-size: 1rem;
+      box-shadow: 0 -1px 4px rgba(0,0,0,0.1);
+      border-radius: 15px 15px 0 0;
+      position: fixed;
+      width: 100%;
+      bottom: 0;
+      left: 0;
+      z-index: 100;
+    }
+  .vervego-title, .verve-title {
+      font-weight: 900;
+      font-size: 2.5rem;
+      color: #f27c3c;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      font-family: 'Segoe UI Black', 'Segoe UI Bold', 'Segoe UI', sans-serif;
+    }
+    #chatButton {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #f27c3c;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      font-size: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      transition: background-color 0.3s ease;
+    }
+    #chatButton:hover {
+      background-color: #e56612;
+    }
+  </style>
+</head>
+<body>
+<header role="banner" aria-label="Site header">
+  <div class="verve-title">Vervego</div>
+  <nav role="navigation" aria-label="Primary navigation">
+    <a href="index.html">Home</a>
+    <a href="travelagencies.html">Travel Agencies</a>
+    <a href="hotels.html">Hotels</a>
+    <a href="about.html">About</a>
+  </nav>
+</header>
+<main role="main">
+  <h1>Explore Popular Destinations</h1>
+  <section class="destinations-grid">
+    <article class="destination-card">
+      <img class="destination-image" src="https://bd.visa.com/content/dam/VCOM/regional/ap/images/travel-with-visa/paris/marquee-travel-paris-800x450.jpg" alt="Paris">
+      <div class="destination-info">
+        <div class="destination-name">Paris</div>
+        <div class="destination-description">The city of lights, known for its art, fashion, and iconic landmarks.</div>
+      </div>
+    </article>
+    <article class="destination-card">
+      <img class="destination-image" src="https://media.connections.be/image/upload/c_fill,g_auto,q_auto:best,w_3840,f_auto//v1652357449/Destinations/Asia/Japan/TOURS/Discover%20Tokyo/Header_Fujiyoshida.jpg" alt="Tokyo">
+      <div class="destination-info">
+        <div class="destination-name">Tokyo</div>
+        <div class="destination-description">A bustling metropolis blending tradition and modernity.</div>
+      </div>
+    </article>
+    <article class="destination-card">
+      <img class="destination-image" src="https://media.cntraveller.com/photos/64f4fc5f663208f83a21af16/4:3/w_2668,h_2001,c_limit/New%20York%20City_GettyImages-1347979016.jpg" alt="New York">
+      <div class="destination-info">
+        <div class="destination-name">New York</div>
+        <div class="destination-description">The city that never sleeps, famous for its skyline and cultural diversity.</div>
+      </div>
+    </article>
+    <article class="destination-card">
+      <img class="destination-image" src="https://www.pelago.com/img/destinations/sydney/hero-image.jpg" alt="Sydney">
+      <div class="destination-info">
+        <div class="destination-name">Sydney</div>
+        <div class="destination-description">Known for its stunning harbor, opera house, and beaches.</div>
+      </div>
+    </article>
+    <article class="destination-card">
+      <img class="destination-image" src="https://media.cntraveler.com/photos/66aa859b257a60dbb6105d8f/4:3/w_2620,h_1965,c_limit/Six%20Senses%20Kanuhura_The%20Point%20aerial.jpg" alt="Maldives">
+      <div class="destination-info">
+        <div class="destination-name">Maldives</div>
+        <div class="destination-description">Tropical paradise with crystal-clear waters and luxury resorts.</div>
+      </div>
+    </article>
+    <article class="destination-card">
+      <img class="destination-image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_lvHpWhrxU92dF2XMOMeWpiB_OFg9VveJAw&s" alt="Rome">
+      <div class="destination-info">
+        <div class="destination-name">Rome</div>
+        <div class="destination-description">Historic city with ancient ruins, art, and delicious cuisine.</div>
+      </div>
+    </article>
+    <article class="destination-card">
+      <img class="destination-image" src="https://media.cntraveler.com/photos/591f1c7d1f187a2af3dedef0/16:9/w_2580,c_limit/barcelona-park-guell-GettyImages-512152500.jpg" alt="Barcelona">
+      <div class="destination-info">
+        <div class="destination-name">Barcelona</div>
+        <div class="destination-description">Famous for its architecture, beaches, and vibrant culture.</div>
+      </div>
+    </article>
+    <article class="destination-card">
+      <img class="destination-image" src="https://www.nationalgeographic.com/content/dam/expeditions/destinations/europe/land/Iceland-Volcanoes-Glaciers-Whales/hero-iceland-land-new-1.jpg" alt="Iceland">
+      <div class="destination-info">
+        <div class="destination-name">Iceland</div>
+        <div class="destination-description">Land of glaciers, volcanoes, and stunning natural beauty.</div>
+      </div>
+    </article>
+    <article class="destination-card">
+      <img class="destination-image" src="https://www.johansens.com/wp-content/uploads/2016/08/Thailand-AYANA-Estate-Bali-73-e1673272835586.jpg" alt="Bali">
+      <div class="destination-info">
+        <div class="destination-name">Bali</div>
+        <div class="destination-description">Island paradise known for its beaches, temples, and culture.</div>
+      </div>
+    </article>
+  </section>
+</main>
+<footer role="contentinfo">
+  &copy; 2025 Vervego. All rights reserved.
+</footer>
+<button id="chatButton" title="Chat with us" onclick="location.href='chat.html'">&#128172;</button>
+</body>
+</html>
